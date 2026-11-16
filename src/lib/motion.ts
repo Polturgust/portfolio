@@ -131,7 +131,7 @@ export const vParallax = motionDirective<number | undefined>((el, amount) => {
   )
 })
 
-/** Image frame opening with a clip-path wipe. */
+/** Frame opening with a clip-path wipe; the content inside is never scaled or cropped. */
 export const vUnveil = motionDirective<void>((el) => {
   gsap.fromTo(
     el,
@@ -143,15 +143,6 @@ export const vUnveil = motionDirective<void>((el) => {
       scrollTrigger: { trigger: el, start: 'top 88%', once: true },
     },
   )
-  const media = el.querySelector('img, video')
-  if (media) {
-    gsap.from(media, {
-      scale: 1.35,
-      duration: 1.9,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-    })
-  }
 })
 
 /** Element pulled towards the pointer. Value = strength (0–1). */

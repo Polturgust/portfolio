@@ -41,8 +41,12 @@ import { copy, locale, theme, toggleLocale, toggleTheme } from '../lib/state'
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   height: 68px;
-  color: #fff;
-  mix-blend-mode: difference;
+  background: var(--bg);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  transition:
+    background-color 0.5s var(--ease),
+    color 0.5s var(--ease);
 }
 
 .nav__brand {

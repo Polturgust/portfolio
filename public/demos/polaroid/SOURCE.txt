@@ -1,0 +1,3 @@
+render.py is an unmodified copy of polaroid/render.py from
+https://github.com/Polturgust/polaroid-forge (commit 9cf39b3).
+The demo imports it as-is under Pyodide.

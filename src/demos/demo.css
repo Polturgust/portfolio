@@ -1,0 +1,124 @@
+/* Shared layout for the live demos: a stage on the left, controls on the right. */
+.lab {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+  max-width: 1500px;
+  margin-inline: auto;
+}
+
+.lab__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 240px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.lab__panel {
+  display: grid;
+  gap: 18px;
+}
+
+.lab__note {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.lab__status {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.lab__field {
+  display: grid;
+  gap: 8px;
+}
+
+.lab__field label,
+.lab__label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lab input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.lab select,
+.lab textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+.lab textarea {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.lab__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lab__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.lab__btn:hover:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.lab__btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.lab__btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.lab__error {
+  color: #c2362b;
+}
+
+@media (max-width: 900px) {
+  .lab {
+    grid-template-columns: 1fr;
+  }
+}

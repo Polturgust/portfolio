@@ -51,8 +51,7 @@ onBeforeUnmount(() => {
 <template>
   <img
     v-if="media.kind === 'image'"
-    v-parallax="7"
-    class="media media--drift"
+    class="media"
     :src="asset(media.src)"
     :alt="alt"
     :width="media.width"
@@ -90,14 +89,11 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+/* The frame has the media's own aspect ratio, so the whole picture is always visible. */
 .media {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.media--drift {
-  scale: 1.16;
+  object-fit: contain;
 }
 
 .media--pixel {

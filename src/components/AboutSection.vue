@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { asset, copy } from '../lib/state'
+import { copy } from '../lib/state'
 </script>
 
 <template>
@@ -9,21 +9,8 @@ import { asset, copy } from '../lib/state'
       <span class="muted">Epitech Nice</span>
     </div>
 
-    <h2 v-lines class="display about__heading">{{ copy.about.heading }}</h2>
-
     <div class="about__grid">
-      <figure v-unveil class="about__portrait">
-        <img
-          v-parallax="6"
-          :src="asset('img/portrait.webp')"
-          :alt="copy.about.portraitAlt"
-          width="350"
-          height="350"
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
-
+      <h2 v-lines class="display about__heading">{{ copy.about.heading }}</h2>
       <div class="about__text">
         <p v-for="(paragraph, i) in copy.about.paragraphs" :key="i" v-lines :class="{ lead: i === 0 }">
           {{ paragraph }}
@@ -42,30 +29,15 @@ import { asset, copy } from '../lib/state'
 
 <style scoped>
 .about__heading {
-  max-width: 12ch;
-  margin-bottom: clamp(48px, 8vw, 120px);
+  font-size: clamp(2.4rem, 4.7vw, 5.6rem);
+  overflow-wrap: break-word;
 }
 
 .about__grid {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: clamp(32px, 7vw, 120px);
   align-items: start;
-}
-
-.about__portrait {
-  overflow: hidden;
-  border-radius: 4px;
-  aspect-ratio: 4 / 5;
-  max-width: 420px;
-  background: var(--surface);
-}
-
-.about__portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  scale: 1.14;
 }
 
 .about__text {
@@ -109,9 +81,6 @@ import { asset, copy } from '../lib/state'
 @media (max-width: 900px) {
   .about__grid {
     grid-template-columns: 1fr;
-  }
-  .about__portrait {
-    max-width: 280px;
   }
   .about__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));

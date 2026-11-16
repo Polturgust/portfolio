@@ -14,6 +14,7 @@ import ExperienceSection from './components/ExperienceSection.vue'
 import SkillsSection from './components/SkillsSection.vue'
 import InterestsSection from './components/InterestsSection.vue'
 import ContactSection from './components/ContactSection.vue'
+import DemoModal from './components/DemoModal.vue'
 
 let refreshTimer: number | undefined
 let pageHeight = 0
@@ -60,6 +61,7 @@ watch(locale, async () => {
     <InterestsSection />
     <ContactSection />
   </main>
+  <DemoModal />
 </template>
 
 <style scoped>

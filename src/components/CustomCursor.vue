@@ -77,7 +77,7 @@ onBeforeUnmount(() => cleanup?.())
   color: var(--accent-ink);
   display: grid;
   place-items: center;
-  transform: scale(0.1);
+  transform: scale(0);
   transition: transform 0.5s var(--ease);
 }
 

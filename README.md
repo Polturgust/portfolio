@@ -25,10 +25,27 @@ npm run build
 
 Set `VITE_BASE` when the site is served from a sub-path (the Pages workflow does this automatically).
 
+## Live demos
+
+Three projects have a "Try it" button that runs them in the browser:
+
+| Project | What runs |
+| --- | --- |
+| polaroid-forge | The project's own `render.py`, unmodified, on Pyodide (`public/demos/polaroid/`) |
+| Raytracer | The original C++ scene reader, renderer and plugins compiled to WebAssembly (`public/demos/raytracer/`) |
+| Wolf3D | A TypeScript port of the raycaster and map generator (`src/demos/wolf3d/`) |
+
+Rebuild the raytracer module after changing the C++ (needs Docker):
+
+```bash
+./demos/raytracer/build.sh
+```
+
 ## Where things live
 
 - `src/i18n/` — all copy, English and French
 - `src/data/projects.ts` — projects, links, contact details
 - `src/lib/motion.ts` — animation directives (`v-reveal`, `v-lines`, `v-parallax`, …)
 - `src/components/` — one component per section
+- `src/demos/` — the live demos, each loaded only when opened
 - `public/img/`, `public/cv/` — images and the downloadable CV

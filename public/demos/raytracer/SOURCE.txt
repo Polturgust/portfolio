@@ -1,0 +1,3 @@
+raytracer.mjs / raytracer.wasm are built from https://github.com/Polturgust/Raytracer
+with demos/raytracer/build.sh (Emscripten). They contain the project's scene reader,
+renderer and shape/light plugins; the SFML window, networking and thread pool are left out.

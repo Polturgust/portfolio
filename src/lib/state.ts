@@ -1,6 +1,7 @@
 import { computed, ref, watch } from 'vue'
 import { en } from '../i18n/en'
 import { fr } from '../i18n/fr'
+import type { ProjectId } from '../data/projects'
 
 export type Locale = 'en' | 'fr'
 export type Theme = 'light' | 'dark'
@@ -37,6 +38,17 @@ function initialTheme(): Theme {
 export const locale = ref<Locale>(initialLocale())
 export const theme = ref<Theme>(initialTheme())
 export const copy = computed(() => messages[locale.value])
+
+/** Project whose live demo is open, if any. */
+export const activeDemo = ref<ProjectId | null>(null)
+
+export function openDemo(id: ProjectId) {
+  activeDemo.value = id
+}
+
+export function closeDemo() {
+  activeDemo.value = null
+}
 
 /** True once the intro has finished and the page can animate in. */
 export const ready = ref(false)

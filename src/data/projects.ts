@@ -11,6 +11,8 @@ export interface Project {
   stack: string[]
   repo: string
   media: Media[]
+  /** 'original' runs the project's own source in the browser, 'port' is a rewrite for the web. */
+  demo?: 'original' | 'port'
 }
 
 const gh = (name: string) => `https://github.com/Polturgust/${name}`
@@ -21,6 +23,7 @@ export const projects: Project[] = [
     title: 'Raytracer',
     stack: ['C++', 'CMake', 'SFML'],
     repo: gh('Raytracer'),
+    demo: 'original',
     media: [
       { kind: 'image', src: 'img/projects/raytracer-1.webp', width: 1280, height: 720 },
       { kind: 'image', src: 'img/projects/raytracer-2.webp', width: 1600, height: 900 },
@@ -48,6 +51,7 @@ export const projects: Project[] = [
     title: 'Wolf3D',
     stack: ['C', 'CSFML'],
     repo: gh('Wolf3D'),
+    demo: 'port',
     media: [
       { kind: 'image', src: 'img/projects/wolf3d-1.webp', width: 1598, height: 900 },
       { kind: 'image', src: 'img/projects/wolf3d-2.webp', width: 1594, height: 895 },
@@ -73,6 +77,7 @@ export const projects: Project[] = [
     title: 'polaroid-forge',
     stack: ['Python', 'Pillow'],
     repo: gh('polaroid-forge'),
+    demo: 'original',
     media: [
       { kind: 'image', src: 'img/projects/polaroid-1.webp', width: 1600, height: 1000 },
       { kind: 'image', src: 'img/projects/polaroid-2.webp', width: 1600, height: 500 },
