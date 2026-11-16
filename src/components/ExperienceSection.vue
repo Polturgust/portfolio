@@ -18,11 +18,15 @@ function format(value: number, decimals: number) {
 onMounted(() => {
   if (reducedMotion || !root.value) return
   ctx = gsap.context(() => {
-    gsap.from('.xp__line', {
-      scaleY: 0,
-      ease: 'none',
-      scrollTrigger: { trigger: '.xp__jobs', start: 'top 70%', end: 'bottom 60%', scrub: 0.4 },
-    })
+    gsap.fromTo(
+      '.xp__line',
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: '.xp__jobs', start: 'top 70%', end: 'bottom 60%', scrub: 0.4 },
+      },
+    )
 
     stats.forEach((stat, i) => {
       const state = { value: 0 }

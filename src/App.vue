@@ -15,9 +15,21 @@ import SkillsSection from './components/SkillsSection.vue'
 import InterestsSection from './components/InterestsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 
+let refreshTimer: number | undefined
+let pageHeight = 0
+
 onMounted(() => {
   initSmoothScroll()
   lockScroll(true)
+
+  // Web fonts and media change the page height after the scroll triggers were measured.
+  new ResizeObserver(() => {
+    const height = document.documentElement.scrollHeight
+    if (height === pageHeight) return
+    pageHeight = height
+    window.clearTimeout(refreshTimer)
+    refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 150)
+  }).observe(document.body)
 })
 
 function onIntroDone() {

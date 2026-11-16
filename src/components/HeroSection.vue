@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 50%;
   right: -4vw;
-  width: min(60vw, 86svh);
+  width: min(72vw, 100svh);
   aspect-ratio: 1;
   translate: 0 -54%;
   pointer-events: none;
@@ -252,8 +252,8 @@ onBeforeUnmount(() => {
 
 @media (max-width: 900px) {
   .hero__orb {
-    width: 96vw;
-    right: -22vw;
+    width: 116vw;
+    right: -30vw;
     translate: 0 -62%;
   }
   .hero__name-line--last {

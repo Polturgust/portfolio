@@ -60,7 +60,7 @@ const fragment = /* glsl */ `
   void main() {
     vec2 uv = (gl_FragCoord.xy * 2.0 - uRes) / min(uRes.x, uRes.y);
     vec3 ro = vec3(0.0, 0.0, 3.3);
-    vec3 rd = normalize(vec3(uv, -1.7));
+    vec3 rd = normalize(vec3(uv * 1.22, -1.7));
 
     float t = 0.0;
     float nearest = 1e3;
