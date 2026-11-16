@@ -30,34 +30,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'zappy',
-    title: 'Zappy',
-    stack: ['C', 'C++', 'Python'],
-    repo: gh('Zappy'),
-    media: [
-      { kind: 'image', src: 'img/projects/zappy-1.webp', width: 912, height: 507 },
-      { kind: 'image', src: 'img/projects/zappy-2.webp', width: 912, height: 507 },
-    ],
-  },
-  {
-    id: 'teams',
-    title: 'Teams from scratch',
-    stack: ['C++17', 'TCP', 'Makefile'],
-    repo: gh('Teams-from-scratch'),
-    media: [{ kind: 'terminal' }],
-  },
-  {
-    id: 'wolf3d',
-    title: 'Wolf3D',
-    stack: ['C', 'CSFML'],
-    repo: gh('Wolf3D'),
-    demo: 'port',
-    media: [
-      { kind: 'image', src: 'img/projects/wolf3d-1.webp', width: 1598, height: 900 },
-      { kind: 'image', src: 'img/projects/wolf3d-2.webp', width: 1594, height: 895 },
-    ],
-  },
-  {
     id: 'zelmon',
     title: 'Zelmon',
     stack: ['Python', 'Pygame', 'SQLite'],
@@ -73,6 +45,17 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'wolf3d',
+    title: 'Wolf3D',
+    stack: ['C', 'CSFML'],
+    repo: gh('Wolf3D'),
+    demo: 'port',
+    media: [
+      { kind: 'image', src: 'img/projects/wolf3d-1.webp', width: 1598, height: 900 },
+      { kind: 'image', src: 'img/projects/wolf3d-2.webp', width: 1594, height: 895 },
+    ],
+  },
+  {
     id: 'polaroid',
     title: 'polaroid-forge',
     stack: ['Python', 'Pillow'],
@@ -82,6 +65,23 @@ export const projects: Project[] = [
       { kind: 'image', src: 'img/projects/polaroid-1.webp', width: 1600, height: 1000 },
       { kind: 'image', src: 'img/projects/polaroid-2.webp', width: 1600, height: 500 },
     ],
+  },
+  {
+    id: 'zappy',
+    title: 'Zappy',
+    stack: ['C', 'C++', 'Python'],
+    repo: gh('Zappy'),
+    media: [
+      { kind: 'image', src: 'img/projects/zappy-1.webp', width: 912, height: 507 },
+      { kind: 'image', src: 'img/projects/zappy-2.webp', width: 912, height: 507 },
+    ],
+  },
+  {
+    id: 'teams',
+    title: 'Teams from scratch',
+    stack: ['C++17', 'TCP', 'Makefile'],
+    repo: gh('Teams-from-scratch'),
+    media: [{ kind: 'terminal' }],
   },
 ]
 
