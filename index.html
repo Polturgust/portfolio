@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Florent Serra — Software Developer</title>
+    <meta name="description" content="Florent Serra — software developer and Epitech student in Nice. Systems and low-level programming in C and C++. Open to an internship from April 2027." />
+    <meta property="og:title" content="Florent Serra — Software Developer" />
+    <meta property="og:description" content="Systems and low-level programming. A shell, a raytracer, a game server — built from the ground up." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#f3f1ec" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

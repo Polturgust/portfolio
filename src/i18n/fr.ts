@@ -1,0 +1,185 @@
+import type { Copy } from './en'
+
+export const fr: Copy = {
+  meta: {
+    title: 'Florent Serra — Développeur logiciel',
+  },
+  nav: {
+    about: 'À propos',
+    work: 'Projets',
+    experience: 'Parcours',
+    contact: 'Contact',
+    theme: 'Changer de thème',
+    language: 'Switch to English',
+    skip: 'Aller au contenu',
+  },
+  cursor: {
+    view: 'Voir',
+    mail: 'Écrire',
+  },
+  hero: {
+    kicker: 'Portfolio — 2026/27',
+    place: 'Nice, France',
+    role: 'Développeur logiciel',
+    tagline:
+      "Je construis ce que l'on tient pour acquis — un shell, un moteur de rendu 3D, une messagerie, un serveur de jeu — en partant de zéro.",
+    availability: 'Disponible pour un stage · avril → août 2027',
+    scroll: 'Défiler',
+  },
+  about: {
+    label: 'À propos',
+    heading: "J'apprends en reconstruisant.",
+    paragraphs: [
+      "Je suis étudiant en troisième année à Epitech Nice, dans un cursus en cinq ans de niveau Master en ingénierie logicielle. L'essentiel de mon travail se fait en C et en C++, au plus près de la machine.",
+      "Si je peux l'écrire de zéro, c'est que je le comprends. C'est le fil conducteur de ce que vous trouverez ici : un shell Unix, un raytracer distribué, un moteur de raycasting, un serveur de jeu en réseau.",
+      "J'enseigne aussi. En tant qu'assistant pédagogique à Epitech, je corrige les projets, j'accompagne les étudiants de première et deuxième année et je gère la CI Jenkins de l'école.",
+    ],
+    portraitAlt: 'Portrait de Florent Serra en bord de mer',
+    facts: [
+      { label: 'Basé à', value: 'Nice · Monaco · Sophia Antipolis' },
+      { label: 'Langues', value: 'Français C2 · Anglais C2' },
+      { label: 'Recherche', value: "Stage de développeur, avril – août 2027, idéalement prolongeable de septembre 2027 à mai 2028" },
+      { label: 'Mobilité', value: 'Permis B, véhicule personnel' },
+    ],
+  },
+  work: {
+    label: 'Projets choisis',
+    heading: 'Construits de zéro.',
+    repo: 'Code sur GitHub',
+    moreHeading: 'Aussi sur GitHub',
+    all: 'Tous les dépôts',
+    projects: {
+      raytracer: {
+        pitch: 'Un moteur de rendu qui suit la lumière, un rayon par pixel.',
+        description:
+          'Une scène 3D décrite dans un fichier de configuration, une image photoréaliste en sortie. Réflexions, réfraction, ombres douces et modèles .obj complets — chaque forme et chaque lumière est un plugin.',
+        facts: ['Multithreadé', 'Rendu distribué client / serveur', 'Architecture à plugins'],
+        alt: ['Dragon de Stanford rendu par le raytracer', 'Sphères et vache miroir reflétant des sphères colorées'],
+      },
+      zappy: {
+        pitch: 'Un jeu en réseau qui se joue tout seul.',
+        description:
+          "Trois programmes qui communiquent en réseau : un serveur en C qui fait tourner le monde et ses règles, un visualiseur 3D en C++ aux moteurs graphiques interchangeables, et une IA en Python qui pilote chaque créature de façon autonome.",
+        facts: ['Serveur en C', 'Vue 3D — SFML, Raylib, OpenGL', 'IA autonome'],
+        alt: ['Gros plan sur le monde 3D de Zappy avec les créatures de trois équipes', 'Le monde de Zappy vu du dessus avec ses ressources'],
+      },
+      teams: {
+        pitch: 'Une messagerie reconstruite depuis le socket.',
+        description:
+          'Un serveur et un client en ligne de commande sur TCP brut : équipes, canaux, fils, réponses et messages privés, mises à jour en direct pour tous les connectés, et état sauvegardé entre deux redémarrages.',
+        facts: ['C++17', 'Protocole TCP maison', 'Persistance'],
+        alt: ['Session de terminal lançant le serveur et le client MyTeams'],
+      },
+      wolf3d: {
+        pitch: 'Un FPS sans moteur — seulement des maths et des pixels.',
+        description:
+          'Une carte 2D transformée en monde 3D par raycasting, en C pur. Les niveaux sont générés de façon procédurale, chaque salle nettoyée offre une amélioration, avec sauvegarde et touches reconfigurables.',
+        facts: ['Raycasting', 'Niveaux procéduraux', 'Sauvegarde'],
+        alt: ['Vue à la première personne dans Wolf3D avec mini-carte et HUD', "Écran de choix d'amélioration avec trois cartes"],
+      },
+      zelmon: {
+        pitch: "The Legend of Pokémon: Zelda's Corruption.",
+        description:
+          'Un jeu d’aventure 2D de fan : un monde ouvert dessiné à la main, des combats au tour par tour, trois arènes à vaincre, un système de sauvegarde complet et le support manette. Projet de fan non commercial.',
+        facts: ['Pygame', 'SQLite', 'Cartes dessinées à la main'],
+        alt: ['Le héros traversant une zone enneigée du jeu'],
+      },
+      polaroid: {
+        pitch: 'Transformer un dossier de photos en Polaroids encadrés.',
+        description:
+          "Une interface web locale servie par la bibliothèque standard de Python : recadrage à la main, étalonnage chaud façon film avec fuites de lumière procédurales, puis mise en page A4 et export d'un PDF prêt à imprimer.",
+        facts: ['Pillow', 'Aucune étape de build', 'PDF prêt à imprimer'],
+        alt: ["L'éditeur polaroid-forge : recadrage, aperçu et réglages", 'Quatre Polaroids terminés'],
+      },
+    },
+    more: {
+      shell: 'Un shell façon tcsh : pipes, redirections, globbing, alias, historique.',
+      maze: 'Plus court chemin dans un labyrinthe, avec visualisation CSFML.',
+      radar: 'Simulation de trafic aérien gérant un grand nombre de collisions.',
+      hunter: 'Duck Hunt, recréé en C.',
+      ls: 'Une réimplémentation de la commande ls.',
+    },
+  },
+  experience: {
+    label: 'Parcours',
+    heading: 'Livrer, puis transmettre.',
+    present: "Aujourd'hui",
+    jobs: [
+      {
+        role: 'Assistant pédagogique (AER)',
+        company: 'Epitech Nice',
+        place: 'Nice',
+        period: "Févr. 2026 — Aujourd'hui",
+        points: [
+          'Correction des projets étudiants de 1re et 2e année',
+          'Suivi, coaching et accompagnement quotidien des étudiants',
+          "Ateliers et gestion de la CI de l'école (Jenkins)",
+        ],
+      },
+      {
+        role: 'Développeur logiciel stagiaire',
+        company: 'Micromania',
+        place: 'Valbonne',
+        period: 'Août — Déc. 2025',
+        points: [
+          'Scanner de cartes Pokémon, réalisé seul de bout en bout',
+          'Vision par ordinateur avec OpenCV et FAISS',
+          'Application web en JavaScript, Python et MySQL, présentée à la direction',
+        ],
+      },
+    ],
+    stats: [
+      { value: 0.025, decimals: 3, suffix: ' s', label: 'pour identifier une carte' },
+      { value: 19500, decimals: 0, suffix: '', label: "cartes dans l'index" },
+      { value: 1, decimals: 0, suffix: '', label: 'développeur, de bout en bout' },
+    ],
+    educationLabel: 'Formation',
+    education: [
+      {
+        title: 'Expert en ingénierie logicielle — niveau Master',
+        school: 'Epitech',
+        period: '2024 — 2029',
+        note: 'Cursus en cinq ans, actuellement en troisième année',
+      },
+      {
+        title: 'Baccalauréat — OIB américain',
+        school: 'Centre International de Valbonne',
+        period: '2024',
+        note: '',
+      },
+    ],
+  },
+  skills: {
+    label: 'Boîte à outils',
+    heading: 'Mes outils.',
+    groups: [
+      { title: 'Langages', items: ['C', 'C++', 'Python', 'Rust', 'Haskell', 'JavaScript', 'Bash'] },
+      { title: 'Outils', items: ['Linux', 'Git', 'Jenkins', 'CMake', 'n8n'] },
+      { title: 'Données & IA', items: ['OpenCV', 'FAISS', 'MySQL', 'SQLite'] },
+      { title: 'Graphisme & Web', items: ['SFML', 'HTML / CSS', 'Vue.js'] },
+    ],
+    softLabel: 'Et avec les gens',
+    soft: ['Communication', "Travail d'équipe", 'Autonomie', 'Adaptabilité', 'Enseignement', 'Mentorat'],
+  },
+  interests: {
+    label: 'En dehors du code',
+    items: [
+      { title: 'Drones FPV', note: 'Vol en immersion' },
+      { title: 'Piano', note: '16 ans' },
+      { title: 'Basse', note: '9 ans' },
+      { title: 'Jeux vidéo', note: 'Y jouer et en créer' },
+    ],
+  },
+  contact: {
+    label: 'Contact',
+    lead: "Vous cherchez un développeur stagiaire à partir d'avril 2027 ?",
+    cta: 'Parlons-en',
+    email: 'E-mail',
+    phone: 'Téléphone',
+    cv: 'Télécharger le CV',
+    cvNote: 'PDF, en anglais',
+    localTime: 'Heure locale à Nice',
+    top: 'Haut de page',
+    rights: 'Conçu et développé par Florent Serra.',
+  },
+}

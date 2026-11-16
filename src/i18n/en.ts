@@ -1,0 +1,185 @@
+export const en = {
+  meta: {
+    title: 'Florent Serra — Software Developer',
+  },
+  nav: {
+    about: 'About',
+    work: 'Work',
+    experience: 'Experience',
+    contact: 'Contact',
+    theme: 'Switch colour theme',
+    language: 'Passer en français',
+    skip: 'Skip to content',
+  },
+  cursor: {
+    view: 'View',
+    mail: 'Write',
+  },
+  hero: {
+    kicker: 'Portfolio — 2026/27',
+    place: 'Nice, France',
+    role: 'Software developer',
+    tagline:
+      'I build the things most people take for granted — a shell, a 3D renderer, a chat platform, a game server — from the ground up.',
+    availability: 'Open to an internship · April → August 2027',
+    scroll: 'Scroll',
+  },
+  about: {
+    label: 'About',
+    heading: 'I learn by rebuilding.',
+    paragraphs: [
+      "I'm a third-year student at Epitech Nice, on a five-year Master's-level programme in software engineering. Most of my work lives in C and C++, close to the metal.",
+      "If I can write it from scratch, I understand it. That idea runs through most of what you'll find here: a Unix shell, a distributed raytracer, a raycasting engine, a networked game server.",
+      "I also teach. As a teaching assistant at Epitech I grade projects, coach first- and second-year students and look after the school's Jenkins CI.",
+    ],
+    portraitAlt: 'Portrait of Florent Serra by the sea',
+    facts: [
+      { label: 'Based in', value: 'Nice · Monaco · Sophia Antipolis' },
+      { label: 'Languages', value: 'French C2 · English C2' },
+      { label: 'Looking for', value: 'Developer internship, April – August 2027, ideally extendable September 2027 – May 2028' },
+      { label: 'Mobility', value: 'Driving licence, own car' },
+    ],
+  },
+  work: {
+    label: 'Selected work',
+    heading: 'Built from scratch.',
+    repo: 'Source on GitHub',
+    moreHeading: 'More on GitHub',
+    all: 'All repositories',
+    projects: {
+      raytracer: {
+        pitch: 'A renderer that follows light, one ray per pixel.',
+        description:
+          'Describe a 3D scene in a config file, get a photorealistic image back. Reflections, refraction, soft shadows and full .obj meshes — every shape and light is its own plugin.',
+        facts: ['Multithreaded', 'Distributed client / server', 'Plugin architecture'],
+        alt: ['Stanford dragon mesh rendered by the raytracer', 'Mirror spheres and a mirror cow reflecting coloured spheres'],
+      },
+      zappy: {
+        pitch: 'A network game that plays itself.',
+        description:
+          'Three programs talking over the network: a C server that runs the world and its rules, a C++ 3D viewer with interchangeable graphics back-ends, and a Python AI that drives each creature on its own.',
+        facts: ['C server', '3D viewer — SFML, Raylib, OpenGL', 'Autonomous AI'],
+        alt: ['Close-up of the Zappy 3D world with creatures from three teams', 'Zappy world seen from above with resources on tiles'],
+      },
+      teams: {
+        pitch: 'A chat platform, rebuilt from the socket up.',
+        description:
+          'A server and a command-line client over raw TCP: teams, channels, threads, replies and private messages, live updates for everyone connected, and state saved across restarts.',
+        facts: ['C++17', 'Custom TCP protocol', 'Persistence'],
+        alt: ['Terminal session starting the MyTeams server and client'],
+      },
+      wolf3d: {
+        pitch: 'A first-person shooter with no engine — just math and pixels.',
+        description:
+          'A 2D map turned into a 3D world by raycasting, in plain C. Levels are generated procedurally, each cleared room offers an upgrade, and there is a save system and remappable keys.',
+        facts: ['Raycasting', 'Procedural levels', 'Save system'],
+        alt: ['First-person view inside Wolf3D with minimap and HUD', 'Upgrade selection screen with three cards'],
+      },
+      zelmon: {
+        pitch: "The Legend of Pokémon: Zelda's Corruption.",
+        description:
+          'A fan-made 2D adventure: a hand-drawn open world, turn-based battles, three gyms to beat, a full save system and controller support. Non-commercial fan project.',
+        facts: ['Pygame', 'SQLite', 'Hand-drawn maps'],
+        alt: ['The hero walking through a snowy area of the game world'],
+      },
+      polaroid: {
+        pitch: 'Turn a folder of photos into framed Polaroids.',
+        description:
+          'A local web interface served by the Python standard library: crop by hand, apply a warm film grade with procedural light leaks, then lay the cards out on A4 and export a print-ready PDF.',
+        facts: ['Pillow', 'No build step', 'Print-ready PDF'],
+        alt: ['The polaroid-forge editor with crop, preview and settings', 'Four finished Polaroid frames'],
+      },
+    },
+    more: {
+      shell: 'A tcsh-like shell: pipes, redirections, globbing, aliases, history.',
+      maze: 'Shortest path through a maze, with a CSFML visualisation.',
+      radar: 'Air-traffic simulation handling a large number of collisions.',
+      hunter: 'Duck Hunt, recreated in C.',
+      ls: 'A reimplementation of the ls command.',
+    },
+  },
+  experience: {
+    label: 'Experience',
+    heading: 'Shipping, then teaching.',
+    present: 'Present',
+    jobs: [
+      {
+        role: 'Teaching Assistant (AER)',
+        company: 'Epitech Nice',
+        place: 'Nice',
+        period: 'Feb 2026 — Present',
+        points: [
+          'Grading first- and second-year student projects',
+          'Student follow-up, coaching and daily support',
+          'Workshops and management of the school CI (Jenkins)',
+        ],
+      },
+      {
+        role: 'Software Developer Intern',
+        company: 'Micromania',
+        place: 'Valbonne',
+        period: 'Aug — Dec 2025',
+        points: [
+          'Pokémon card scanner, built solo from end to end',
+          'Computer vision with OpenCV and FAISS',
+          'Web app in JavaScript, Python and MySQL, pitched to the board',
+        ],
+      },
+    ],
+    stats: [
+      { value: 0.025, decimals: 3, suffix: ' s', label: 'to identify a card' },
+      { value: 19500, decimals: 0, suffix: '', label: 'cards in the index' },
+      { value: 1, decimals: 0, suffix: '', label: 'developer, end to end' },
+    ],
+    educationLabel: 'Education',
+    education: [
+      {
+        title: "Software Engineering Expert — Master's level",
+        school: 'Epitech',
+        period: '2024 — 2029',
+        note: 'Five-year programme, currently in third year',
+      },
+      {
+        title: 'French Baccalaureate — American OIB',
+        school: 'Centre International de Valbonne',
+        period: '2024',
+        note: '',
+      },
+    ],
+  },
+  skills: {
+    label: 'Toolbox',
+    heading: 'What I work with.',
+    groups: [
+      { title: 'Languages', items: ['C', 'C++', 'Python', 'Rust', 'Haskell', 'JavaScript', 'Bash'] },
+      { title: 'Tools', items: ['Linux', 'Git', 'Jenkins', 'CMake', 'n8n'] },
+      { title: 'Data & AI', items: ['OpenCV', 'FAISS', 'MySQL', 'SQLite'] },
+      { title: 'Graphics & Web', items: ['SFML', 'HTML / CSS', 'Vue.js'] },
+    ],
+    softLabel: 'And with people',
+    soft: ['Communication', 'Teamwork', 'Autonomy', 'Adaptability', 'Teaching', 'Mentoring'],
+  },
+  interests: {
+    label: 'Beyond code',
+    items: [
+      { title: 'FPV drones', note: 'First-person flight' },
+      { title: 'Piano', note: '16 years' },
+      { title: 'Bass guitar', note: '9 years' },
+      { title: 'Video games', note: 'Playing and making them' },
+    ],
+  },
+  contact: {
+    label: 'Contact',
+    lead: 'Looking for a developer intern from April 2027?',
+    cta: "Let's talk",
+    email: 'Email',
+    phone: 'Phone',
+    cv: 'Download CV',
+    cvNote: 'PDF, English',
+    localTime: 'Local time in Nice',
+    top: 'Back to top',
+    rights: 'Designed and built by Florent Serra.',
+  },
+}
+
+export type Copy = typeof en
