@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { activeDemo } from '../lib/state'
 import { finePointer, gsap, reducedMotion } from '../lib/motion'
 
 const enabled = finePointer && !reducedMotion
@@ -9,6 +10,11 @@ const active = ref(false)
 const shown = ref(false)
 
 let cleanup: (() => void) | undefined
+
+// A dialog opening or closing changes what is under the pointer without a pointer move.
+watch(activeDemo, () => {
+  active.value = false
+})
 
 onMounted(() => {
   if (!enabled || !dot.value) return
