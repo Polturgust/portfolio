@@ -27,7 +27,7 @@ Set `VITE_BASE` when the site is served from a sub-path (the Pages workflow does
 
 ## Live demos
 
-Three projects have a "Try it" button that runs them in the browser:
+Three projects have a "Try a demo" button. Each demo runs one part of the project in the browser, not the whole thing, and says so on screen:
 
 | Project | What runs |
 | --- | --- |

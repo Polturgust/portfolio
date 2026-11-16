@@ -14,6 +14,10 @@ const demos: Partial<Record<ProjectId, ReturnType<typeof defineAsyncComponent>>>
 
 const project = computed(() => projects.find((p) => p.id === activeDemo.value))
 const view = computed(() => (activeDemo.value ? demos[activeDemo.value] : undefined))
+const scope = computed(() => {
+  const id = activeDemo.value
+  return id === 'polaroid' || id === 'raytracer' || id === 'wolf3d' ? copy.value.demo[id].scope : ''
+})
 
 const dialog = ref<HTMLElement>()
 const closeButton = ref<HTMLButtonElement>()
@@ -86,6 +90,15 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
         </button>
       </header>
       <div class="demo__body">
+        <aside class="demo__notice" role="note">
+          <p class="demo__notice-title">
+            <strong>{{ copy.demo.notFull }}</strong> {{ copy.demo.notFullLead }}
+          </p>
+          <p class="demo__notice-scope">{{ scope }}</p>
+          <a class="mono link-line" :href="project.repo" target="_blank" rel="noopener">
+            {{ copy.demo.fullProject }} ↗
+          </a>
+        </aside>
         <component :is="view" />
       </div>
     </div>
@@ -134,11 +147,6 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
   border: 1px solid var(--line);
 }
 
-.demo__badge--original {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
-}
 
 .demo__close {
   display: inline-flex;
@@ -163,6 +171,33 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: clamp(16px, 3vw, 40px) var(--pad);
+}
+
+.demo__notice {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  max-width: 1500px;
+  margin: 0 auto clamp(16px, 2.4vw, 32px);
+  padding: clamp(14px, 1.6vw, 20px) clamp(16px, 2vw, 24px);
+  border: 1px solid var(--accent);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.demo__notice-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.demo__notice-scope {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 80ch;
+  text-wrap: pretty;
 }
 
 .demo-enter-active,

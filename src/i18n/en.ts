@@ -98,13 +98,17 @@ export const en = {
     },
   },
   demo: {
-    tryIt: 'Try it',
+    tryIt: 'Try a demo',
     close: 'Close',
-    original: 'Runs the original source code',
-    port: 'Browser port',
+    original: 'Partial demo · original source code',
+    port: 'Partial demo · browser port',
+    notFull: 'This is not the full project.',
+    notFullLead: 'It is a way to try one part of it in your browser.',
+    fullProject: 'See the full project on GitHub',
     source: 'Source',
     failed: 'The demo could not start in this browser.',
     polaroid: {
+      scope: 'Here: the film grade, light leaks and frame on a single photo. The full tool also has manual cropping and rotation, batch processing with chronological renaming, resumable sessions and A4 print sheets exported as PDF.',
       note: "This is the project's own render.py, unmodified, running on Pyodide (Python compiled to WebAssembly). Your photo never leaves the browser.",
       firstLoad: 'The first run downloads the Python runtime (about 10 MB).',
       choose: 'Choose a photo',
@@ -119,6 +123,7 @@ export const en = {
       resultAlt: 'Rendered Polaroid',
     },
     raytracer: {
+      scope: 'Here: the renderer with spheres, planes, cylinders and lights, on one thread. The full project also has a live preview window, multithreaded rendering, distributed client/server rendering and .obj mesh loading.',
       note: 'The renderer and its shape and light plugins, compiled from the original C++ to WebAssembly. Single-threaded here: a static site cannot enable browser threads.',
       scene: 'Scene',
       render: 'Render',
@@ -130,7 +135,7 @@ export const en = {
     },
     wolf3d: {
       note: 'A TypeScript port of the raycaster and the procedural map generator. The original is written in C with CSFML, which has no browser target.',
-      fullGame: 'In the full game: shooting, upgrades, story, saves and remappable keys.',
+      scope: 'Here: walking through procedurally generated mazes. The full game also has shooting, corruption to destroy, upgrades between rooms, a story, menus, saves and remappable keys.',
       newMap: 'New map',
       room: 'Room',
       legend: 'Yellow: you and the exit door',

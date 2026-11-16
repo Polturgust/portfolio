@@ -189,7 +189,6 @@ onBeforeUnmount(() => {
       <div class="lab__buttons">
         <button class="lab__btn lab__btn--primary" type="button" @click="newMap(false)">{{ t().newMap }}</button>
       </div>
-      <p class="lab__note">{{ t().fullGame }}</p>
     </div>
   </div>
 </template>

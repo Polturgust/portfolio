@@ -100,13 +100,17 @@ export const fr: Copy = {
     },
   },
   demo: {
-    tryIt: 'Essayer',
+    tryIt: 'Essayer une démo',
     close: 'Fermer',
-    original: 'Exécute le code source original',
-    port: 'Portage navigateur',
+    original: 'Démo partielle · code source original',
+    port: 'Démo partielle · portage navigateur',
+    notFull: "Ceci n'est pas le projet complet.",
+    notFullLead: "C'est un moyen d'en essayer une partie dans votre navigateur.",
+    fullProject: 'Voir le projet complet sur GitHub',
     source: 'Code',
     failed: "La démo n'a pas pu démarrer dans ce navigateur.",
     polaroid: {
+      scope: "Ici : l'étalonnage film, les fuites de lumière et le cadre sur une seule photo. L'outil complet propose aussi le recadrage et la rotation à la main, le traitement par lot avec renommage chronologique, la reprise de session et des planches A4 exportées en PDF.",
       note: "C'est le render.py du projet, non modifié, exécuté par Pyodide (Python compilé en WebAssembly). Votre photo ne quitte jamais le navigateur.",
       firstLoad: "Le premier lancement télécharge l'environnement Python (environ 10 Mo).",
       choose: 'Choisir une photo',
@@ -121,6 +125,7 @@ export const fr: Copy = {
       resultAlt: 'Polaroid rendu',
     },
     raytracer: {
+      scope: "Ici : le moteur de rendu avec sphères, plans, cylindres et lumières, sur un seul thread. Le projet complet propose aussi une fenêtre d'aperçu en direct, le rendu multithreadé, le rendu distribué client/serveur et le chargement de modèles .obj.",
       note: "Le moteur de rendu et ses plugins de formes et de lumières, compilés du C++ original vers WebAssembly. Mono-thread ici : un site statique ne peut pas activer les threads du navigateur.",
       scene: 'Scène',
       render: 'Rendre',
@@ -132,7 +137,7 @@ export const fr: Copy = {
     },
     wolf3d: {
       note: "Un portage TypeScript du raycaster et du générateur de cartes procédural. L'original est écrit en C avec CSFML, qui ne tourne pas dans un navigateur.",
-      fullGame: 'Dans le jeu complet : tir, améliorations, histoire, sauvegardes et touches reconfigurables.',
+      scope: "Ici : la marche dans des labyrinthes générés de façon procédurale. Le jeu complet propose aussi le tir, la corruption à détruire, des améliorations entre les salles, une histoire, des menus, des sauvegardes et des touches reconfigurables.",
       newMap: 'Nouvelle carte',
       room: 'Salle',
       legend: 'Jaune : vous et la porte de sortie',
