@@ -1,5 +1,5 @@
 bzImage + initramfs.cpio.gz are built with demos/myshell/build.sh:
-- 42sh: https://github.com/Polturgust/my-shell (branch shell-rewrite, commit c128b38),
+- 42sh: https://github.com/Polturgust/my-shell (commit c128b38, merged into main),
   compiled with its own Makefile and linked statically against musl (i386).
 - Linux kernel: Alpine Linux 3.20 linux-virt (x86). Other commands: BusyBox (static).
 seabios.bin / vgabios.bin come from https://github.com/copy/v86 (bios/, commit 315b2b0),
