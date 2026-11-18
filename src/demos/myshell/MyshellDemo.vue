@@ -11,14 +11,17 @@ import '../demo.css'
 const t = () => copy.value.demo.myshell
 
 // Commands checked against the real 42sh in this VM.
+// Full commands, checked against the real 42sh: simple ones first, then one per feature.
 const examples = [
-  'ls -la | grep txt',
-  'cat fruits.txt | sort -r > s.txt ; cat s.txt',
-  'set name = you ; echo "hello $name"',
-  'cd pro',
-  'false || echo fallback',
-  'sleep 20 &',
-  'jobs',
+  'ls -la',
+  'cat fruits.txt | grep a | sort -r',
+  'echo "hello $USER" > hi.txt && cat hi.txt',
+  'ls nothere || echo "ls failed with status $status"',
+  'sort < fruits.txt | head -n 2 > top.txt ; cat top.txt',
+  'set n = 3 ; repeat $n echo hi',
+  'echo `ls *.txt | wc -l` text files in $cwd',
+  '(cd projects && ./hello.sh) ; pwd',
+  'sleep 10 & jobs',
   'history',
 ]
 
@@ -61,9 +64,9 @@ function onByte(byte: number) {
   }
 }
 
-function type(command: string) {
+function run(command: string) {
   if (status.value !== 'ready') return
-  emulator?.serial0_send(command)
+  emulator?.serial0_send('\x15' + command + '\r')
   term?.focus()
 }
 
@@ -157,11 +160,12 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="lab__panel">
+      <p class="sh__hint">{{ t().typeHint }}</p>
       <p class="lab__note">{{ t().note }}</p>
       <p class="mono lab__label">{{ t().examples }}</p>
       <ul class="sh__examples">
         <li v-for="example in examples" :key="example">
-          <button class="sh__example mono" type="button" :disabled="status !== 'ready'" @click="type(example)">
+          <button class="sh__example mono" type="button" :disabled="status !== 'ready'" @click="run(example)">
             {{ example }}
           </button>
         </li>
@@ -213,6 +217,14 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   gap: 8px 20px;
   color: var(--accent);
+}
+
+.sh__hint {
+  padding: 12px 14px;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-radius: 4px;
+  line-height: 1.45;
 }
 
 .sh__examples {
