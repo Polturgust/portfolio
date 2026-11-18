@@ -1,3 +1,1 @@
-Wall and door textures are taken from https://github.com/Polturgust/Wolf3D (src/assets/tex),
-resized for the web. The demo code in src/demos/wolf3d is a TypeScript port of
-src/raycasting.c and src/map/*.c from the same repository (commit 3bef333).
+Assets from github.com/Polturgust/Wolf3D (commit 3bef333), converted for the web.

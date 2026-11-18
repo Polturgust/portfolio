@@ -1,234 +1,194 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { asset, copy } from '../../lib/state'
-import { finePointer } from '../../lib/motion'
-import { randomMap } from './map'
-import type { Grid } from './map'
-import { isWall, render, renderMinimap, renderOverview, spawn, tileAt } from './engine'
-import type { Player, Textures } from './engine'
+import { asset, closeDemo, copy } from '../../lib/state'
+import { loadAssets, SOUNDS, type Assets } from './assets'
+import { Game } from './game'
+import { Input, loadLayout } from './input'
+import { renderGame } from './render'
+import { Story } from './story'
 import '../demo.css'
 
 const t = () => copy.value.demo.wolf3d
 
-const view = ref<HTMLCanvasElement>()
-const overview = ref<HTMLCanvasElement>()
-const rooms = ref(1)
-const failed = ref(false)
+const canvas = ref<HTMLCanvasElement>()
+const frame = ref<HTMLElement>()
+const status = ref<'loading' | 'ready' | 'running' | 'error'>('loading')
+const progress = ref(0)
 
-let map: Grid = randomMap()
-let player: Player = spawn()
-let textures: Textures | undefined
-let frame = 0
+let assets: Assets | undefined
+let input: Input | undefined
+let game: Game | undefined
+let story: Story | undefined
+let audio: AudioContext | undefined
+let raf = 0
 let last = 0
-const held = new Set<string>()
 
-const keys: Record<string, string> = {
-  KeyW: 'front', KeyZ: 'front', ArrowUp: 'front',
-  KeyS: 'back', ArrowDown: 'back',
-  KeyA: 'left', KeyQ: 'left',
-  KeyD: 'right',
-  ArrowLeft: 'turnLeft', ArrowRight: 'turnRight',
+async function start() {
+  if (!assets || !canvas.value || status.value !== 'ready') return
+  status.value = 'running'
+  audio = new AudioContext()
+  const buffers: Record<string, AudioBuffer> = {}
+  await Promise.all(
+    SOUNDS.map(async (name) => {
+      try {
+        buffers[name] = await audio!.decodeAudioData(assets!.sounds[name].slice(0))
+      } catch {
+        /* a sound that cannot be decoded stays silent */
+      }
+    }),
+  )
+  input = new Input(canvas.value, () => (game ? new Set(Object.values(game.binds)) : new Set(['Space'])))
+  game = new Game(assets, input, audio, buffers, () => closeDemo())
+  story = new Story(assets, input)
+  if (import.meta.env.DEV) Object.assign(window, { __wolf: { game, story } })
+  document.addEventListener('pointerlockchange', onLockChange)
+  last = performance.now()
+  raf = requestAnimationFrame(loop)
 }
 
-function newMap(next = false) {
-  map = randomMap()
-  player = spawn()
-  rooms.value = next ? rooms.value + 1 : 1
+function onLockChange() {
+  if (!input?.locked()) game?.pointerReleased()
 }
 
-function loadImage(name: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const image = new Image()
-    image.onload = () => resolve(image)
-    image.onerror = reject
-    image.src = asset(`demos/wolf3d/${name}.webp`)
-  })
-}
-
-// update_player(): same speeds as the game, which runs at 60 frames per second.
-function update(dt: number) {
-  const step = player.speed * dt * 60
-  let x = player.x
-  let y = player.y
-  if (held.has('front')) {
-    x += Math.cos(player.angle) * step
-    y += Math.sin(player.angle) * step
+function loop(time: number) {
+  const dt = (time - last) / 1000
+  last = time
+  const ctx = canvas.value?.getContext('2d')
+  if (ctx && game && story) {
+    if (!story.done) {
+      story.step()
+      story.draw(ctx)
+      if (story.done) {
+        game.playStart = performance.now() / 1000
+        input!.events.length = 0
+      }
+    } else {
+      game.step(dt)
+      renderGame(game, ctx)
+    }
   }
-  if (held.has('back')) {
-    x -= Math.cos(player.angle) * step
-    y -= Math.sin(player.angle) * step
-  }
-  if (held.has('left')) {
-    x += (Math.cos(player.angle - Math.PI / 2) * step) / 1.5
-    y += (Math.sin(player.angle - Math.PI / 2) * step) / 1.5
-  }
-  if (held.has('right')) {
-    x += (Math.cos(player.angle + Math.PI / 2) * step) / 1.5
-    y += (Math.sin(player.angle + Math.PI / 2) * step) / 1.5
-  }
-  if (held.has('turnLeft')) player.angle -= 2.4 * dt
-  if (held.has('turnRight')) player.angle += 2.4 * dt
-
-  if (!isWall(map, x, y)) {
-    player.x = x
-    player.y = y
-  } else if (tileAt(map, x, y) === '3') {
-    newMap(true) // the door leads to the next generated room
-  }
-  player.angle %= 2 * Math.PI
-  if (player.angle < 0) player.angle += 2 * Math.PI
+  raf = requestAnimationFrame(loop)
 }
 
-function loop(now: number) {
-  const dt = Math.min(0.05, (now - last) / 1000)
-  last = now
-  update(dt)
-  const ctx = view.value?.getContext('2d')
-  const mini = overview.value?.getContext('2d')
-  if (ctx && textures) {
-    render(ctx, map, player, textures)
-    renderMinimap(ctx, map, player, 62)
-  }
-  if (mini) renderOverview(mini, map, player)
-  frame = requestAnimationFrame(loop)
+function fullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen()
+  else frame.value?.requestFullscreen?.()
 }
-
-function onKey(event: KeyboardEvent) {
-  const action = keys[event.code]
-  if (!action) return
-  // let typing and native controls keep their keys
-  if (event.target instanceof Element && event.target.closest('input, select, textarea')) return
-  event.preventDefault()
-  if (event.type === 'keydown') held.add(action)
-  else held.delete(action)
-}
-
-function onMouse(event: MouseEvent) {
-  if (document.pointerLockElement === view.value) player.angle += event.movementX * 0.0025
-}
-
-function lock() {
-  if (finePointer) view.value?.requestPointerLock?.()
-}
-
-const press = (action: string) => held.add(action)
-const release = (action: string) => held.delete(action)
 
 onMounted(async () => {
+  await loadLayout()
   try {
-    const [wall, wall2, door] = await Promise.all(['wall_1', 'wall_2', 'door_closed'].map(loadImage))
-    textures = { wall, wall2, door }
+    assets = await loadAssets(asset('demos/wolf3d/'), (r) => (progress.value = Math.round(r * 100)))
+    status.value = 'ready'
   } catch {
-    failed.value = true
-    return
+    status.value = 'error'
   }
-  window.addEventListener('keydown', onKey)
-  window.addEventListener('keyup', onKey)
-  document.addEventListener('mousemove', onMouse)
-  last = performance.now()
-  frame = requestAnimationFrame(loop)
 })
 
 onBeforeUnmount(() => {
-  cancelAnimationFrame(frame)
-  window.removeEventListener('keydown', onKey)
-  window.removeEventListener('keyup', onKey)
-  document.removeEventListener('mousemove', onMouse)
-  if (document.pointerLockElement) document.exitPointerLock()
+  cancelAnimationFrame(raf)
+  document.removeEventListener('pointerlockchange', onLockChange)
+  game?.destroy()
+  input?.destroy()
+  audio?.close()
+  if (document.fullscreenElement) document.exitFullscreen()
 })
 </script>
 
 <template>
-  <div class="lab">
+  <div class="lab wolf">
     <div class="wolf__main">
-      <div class="lab__stage wolf__stage">
-        <canvas
-          ref="view"
-          class="wolf__view"
-          width="800"
-          height="450"
-          role="img"
-          :aria-label="t().canvasAlt"
-          @click="lock"
-        />
-      </div>
-
-      <div class="wolf__pad">
-        <button
-          v-for="control in [
-            { action: 'turnLeft', label: '⟲' },
-            { action: 'front', label: '▲' },
-            { action: 'back', label: '▼' },
-            { action: 'turnRight', label: '⟳' },
-          ]"
-          :key="control.action"
-          class="lab__btn wolf__key"
-          type="button"
-          :aria-label="control.action"
-          @pointerdown.prevent="press(control.action)"
-          @pointerup="release(control.action)"
-          @pointerleave="release(control.action)"
-          @pointercancel="release(control.action)"
-        >
-          {{ control.label }}
+      <div ref="frame" class="wolf__frame">
+        <canvas ref="canvas" class="wolf__canvas" width="1600" height="900" role="img" :aria-label="t().canvasAlt" />
+        <button v-if="status !== 'running'" class="wolf__start" type="button" :disabled="status !== 'ready'" @click="start">
+          <span v-if="status === 'loading'" class="mono">{{ t().loading }} {{ progress }}%</span>
+          <span v-else-if="status === 'ready'" class="wolf__play">▶ {{ t().start }}</span>
+          <span v-else>{{ copy.demo.failed }}</span>
         </button>
+      </div>
+      <div class="lab__buttons">
+        <button class="lab__btn" type="button" @click="fullscreen">{{ t().fullscreen }}</button>
       </div>
     </div>
 
     <div class="lab__panel">
       <p class="lab__note">{{ t().note }}</p>
-      <p v-if="failed" class="lab__error">{{ copy.demo.failed }}</p>
-      <p class="lab__note">{{ finePointer ? t().controls : t().touch }}</p>
-
-      <canvas ref="overview" class="wolf__overview" width="300" height="300" aria-hidden="true" />
-      <p class="mono lab__label">
-        <span>{{ t().room }} {{ rooms }}</span>
-        <span>{{ t().legend }}</span>
-      </p>
-
-      <div class="lab__buttons">
-        <button class="lab__btn lab__btn--primary" type="button" @click="newMap(false)">{{ t().newMap }}</button>
-      </div>
+      <p class="mono lab__label">{{ t().controlsTitle }}</p>
+      <dl class="wolf__keys">
+        <template v-for="row in t().controls" :key="row[0]">
+          <dt class="mono">{{ row[0] }}</dt>
+          <dd>{{ row[1] }}</dd>
+        </template>
+      </dl>
+      <p class="lab__note">{{ t().goal }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
+.wolf {
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+}
+
 .wolf__main {
   display: grid;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
 }
 
-.wolf__stage {
-  min-height: 0;
+.wolf__frame {
+  position: relative;
   background: #000;
-}
-
-.wolf__view {
-  width: 100%;
-  height: auto;
-  cursor: crosshair;
-  image-rendering: pixelated;
-}
-
-.wolf__pad {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.wolf__key {
-  min-width: 56px;
-  min-height: 48px;
-  touch-action: none;
-  user-select: none;
-}
-
-.wolf__overview {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
   border-radius: 6px;
-  image-rendering: pixelated;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.wolf__frame:fullscreen .wolf__canvas {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}
+
+.wolf__canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  cursor: crosshair;
+}
+
+.wolf__start {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 1.2rem;
+}
+
+.wolf__play {
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.wolf__keys {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.wolf__keys dt {
+  white-space: nowrap;
+}
+
+.wolf__keys dd {
+  margin: 0;
+  color: var(--muted);
 }
 </style>

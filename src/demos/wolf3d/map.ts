@@ -1,5 +1,5 @@
 // Port of src/map/map.c and src/map/form.c from Wolf3D.
-// Tiles: '0' floor, '1' wall, '2' corrupted wall, '3' door (the exit).
+// Tiles: '0' floor, '1' wall, '2' corrupted wall, '3' closed door, '4' open door.
 // The generator carves rooms and corridors from the top-left corner towards the
 // bottom of the grid, then retries until every row has been reached.
 

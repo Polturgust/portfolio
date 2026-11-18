@@ -24,7 +24,9 @@ const scope = computed(() => {
 
 const badge = computed(() => {
   const kind = project.value?.demo
-  return kind === 'full' ? copy.value.demo.full : kind === 'original' ? copy.value.demo.original : copy.value.demo.port
+  if (kind === 'full') return copy.value.demo.full
+  if (kind === 'fullport') return copy.value.demo.fullPort
+  return kind === 'original' ? copy.value.demo.original : copy.value.demo.port
 })
 
 const dialog = ref<HTMLElement>()
@@ -35,7 +37,8 @@ const close = closeDemo
 
 function onKeydown(e: KeyboardEvent) {
   // While a demo holds the pointer (mouse look), Escape only releases it.
-  if (e.key === 'Escape' && !document.pointerLockElement) {
+  // A demo that uses Escape itself (the Wolf3D menu) marks the event as handled.
+  if (e.key === 'Escape' && !document.pointerLockElement && !e.defaultPrevented) {
     close()
     return
   }
@@ -101,6 +104,9 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
         <aside class="demo__notice" role="note">
           <p v-if="project.demo === 'full'" class="demo__notice-title">
             <strong>{{ copy.demo.isFull }}</strong> {{ copy.demo.isFullLead }}
+          </p>
+          <p v-else-if="project.demo === 'fullport'" class="demo__notice-title">
+            <strong>{{ copy.demo.isFullPort }}</strong> {{ copy.demo.isFullPortLead }}
           </p>
           <p v-else class="demo__notice-title">
             <strong>{{ copy.demo.notFull }}</strong> {{ copy.demo.notFullLead }}

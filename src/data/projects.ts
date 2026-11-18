@@ -21,7 +21,7 @@ export interface Project {
    * 'full' runs the whole project unmodified, 'original' runs part of the project's own
    * source, 'port' is a rewrite of part of it for the web.
    */
-  demo?: 'full' | 'original' | 'port'
+  demo?: 'full' | 'fullport' | 'original' | 'port'
 }
 
 const gh = (name: string) => `https://github.com/Polturgust/${name}`
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     title: 'Wolf3D',
     stack: ['C', 'CSFML'],
     repo: gh('Wolf3D'),
-    demo: 'port',
+    demo: 'fullport',
     media: [
       { kind: 'image', src: 'img/projects/wolf3d-1.webp', width: 1598, height: 900 },
       { kind: 'image', src: 'img/projects/wolf3d-2.webp', width: 1594, height: 895 },
