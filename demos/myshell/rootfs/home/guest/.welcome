@@ -1,0 +1,11 @@
+This is the real 42sh, built unmodified from
+github.com/Polturgust/my-shell, running on a small Linux in your browser.
+Other commands (ls, cat, grep, sort...) are BusyBox. Nothing is saved.
+
+Try:  ls -la | grep txt               cat fruits.txt | grep b | wc -l
+      echo hello > note.txt           cat < note.txt
+      false || echo fallback          ls *.t?t
+      alias ll ls -l                  ll
+      setenv GREETING hi              env | grep GREETING
+      echo `pwd`                      history
+

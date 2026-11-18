@@ -1,9 +1,15 @@
-export type ProjectId = 'raytracer' | 'zappy' | 'teams' | 'wolf3d' | 'zelmon' | 'polaroid'
+export type ProjectId = 'raytracer' | 'zappy' | 'teams' | 'wolf3d' | 'myshell' | 'zelmon' | 'polaroid'
 
 export type Media =
   | { kind: 'image'; src: string; width: number; height: number }
   | { kind: 'video'; src: string; poster: string; width: number; height: number }
-  | { kind: 'terminal' }
+  | { kind: 'terminal'; title: string; lines: TerminalLine[] }
+
+/** One line of a recorded terminal session: a command after `prompt`, or plain output. */
+export interface TerminalLine {
+  prompt?: string
+  text: string
+}
 
 export interface Project {
   id: ProjectId
@@ -11,8 +17,11 @@ export interface Project {
   stack: string[]
   repo: string
   media: Media[]
-  /** 'original' runs the project's own source in the browser, 'port' is a rewrite for the web. */
-  demo?: 'original' | 'port'
+  /**
+   * 'full' runs the whole project unmodified, 'original' runs part of the project's own
+   * source, 'port' is a rewrite of part of it for the web.
+   */
+  demo?: 'full' | 'original' | 'port'
 }
 
 const gh = (name: string) => `https://github.com/Polturgust/${name}`
@@ -56,6 +65,31 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'myshell',
+    title: 'my-shell (42sh)',
+    stack: ['C', 'POSIX', 'Makefile'],
+    repo: gh('my-shell'),
+    demo: 'full',
+    media: [
+      {
+        kind: 'terminal',
+        title: '42sh',
+        // Recorded from the live demo.
+        lines: [
+          { prompt: '➜', text: 'cat fruits.txt | grep ap | sort -r' },
+          { text: 'apricot' },
+          { text: 'apple' },
+          { prompt: '➜', text: 'echo hello > note.txt ; cat < note.txt' },
+          { text: 'hello' },
+          { prompt: '➜', text: 'false || echo fallback' },
+          { text: 'fallback' },
+          { prompt: '➜', text: 'ls *.t?t' },
+          { text: 'fruits.txt  note.txt  notes.txt' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'polaroid',
     title: 'polaroid-forge',
     stack: ['Python', 'Pillow'],
@@ -81,14 +115,24 @@ export const projects: Project[] = [
     title: 'Teams from scratch',
     stack: ['C++17', 'TCP', 'Makefile'],
     repo: gh('Teams-from-scratch'),
-    media: [{ kind: 'terminal' }],
+    media: [
+      {
+        kind: 'terminal',
+        title: 'myteams',
+        lines: [
+          { prompt: '$', text: './myteams_server 4242' },
+          { prompt: '$', text: './myteams_cli 127.0.0.1 4242' },
+          { prompt: '>', text: '/login "flo"' },
+          { prompt: '>', text: '/help' },
+        ],
+      },
+    ],
   },
 ]
 
-export type MoreId = 'shell' | 'maze' | 'radar' | 'hunter' | 'ls'
+export type MoreId = 'maze' | 'radar' | 'hunter' | 'ls'
 
 export const moreProjects: { id: MoreId; title: string; lang: string; repo: string }[] = [
-  { id: 'shell', title: 'my-shell (42sh)', lang: 'C', repo: gh('my-shell') },
   { id: 'maze', title: 'a-maze-d', lang: 'C', repo: gh('a-maze-d') },
   { id: 'radar', title: 'my-radar', lang: 'C', repo: gh('my-radar') },
   { id: 'hunter', title: 'my-hunter', lang: 'C', repo: gh('my-hunter') },

@@ -1,0 +1,2 @@
+Notes from the guest account.
+The shell found this file by itself.

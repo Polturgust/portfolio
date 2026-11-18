@@ -81,6 +81,13 @@ export const en = {
         facts: ['Pygame', 'SQLite', 'Hand-drawn maps'],
         alt: ['The hero walking through a snowy area of the game world'],
       },
+      myshell: {
+        pitch: 'A Unix shell, written from scratch in C.',
+        description:
+          'It reads what you type, parses it and runs it with fork, execve, pipe and dup2 — no other shell underneath. Pipes, redirections, && and ||, parentheses, globbing, backticks, aliases, variables, history and a .myshrc config file.',
+        facts: ['fork · execve · pipe · dup2', 'Pipes, redirections, && and ||', 'Globbing, aliases, history'],
+        alt: ['Terminal session in 42sh using a pipe, a redirection, || and a glob'],
+      },
       polaroid: {
         pitch: 'Turn a folder of photos into framed Polaroids.',
         description:
@@ -90,7 +97,6 @@ export const en = {
       },
     },
     more: {
-      shell: 'A tcsh-like shell: pipes, redirections, globbing, aliases, history.',
       maze: 'Shortest path through a maze, with a CSFML visualisation.',
       radar: 'Air-traffic simulation handling a large number of collisions.',
       hunter: 'Duck Hunt, recreated in C.',
@@ -102,11 +108,25 @@ export const en = {
     close: 'Close',
     original: 'Partial demo · original source code',
     port: 'Partial demo · browser port',
+    full: 'Full project · original source code',
+    isFull: 'This is the whole shell, unmodified.',
+    isFullLead: 'It runs on a small Linux system emulated in your browser.',
     notFull: 'This is not the full project.',
     notFullLead: 'It is a way to try one part of it in your browser.',
     fullProject: 'See the full project on GitHub',
     source: 'Source',
     failed: 'The demo could not start in this browser.',
+    myshell: {
+      scope: "The 42sh binary is built from the repository's own sources and Makefile, then booted inside a minimal Linux. Commands other than the shell's built-ins (ls, cat, grep, sort…) come from BusyBox. There is no network and nothing is saved: reloading starts from scratch.",
+      booting: 'Starting Linux…',
+      downloading: 'Downloading',
+      ready: 'Ready — type a command',
+      restart: 'Restart',
+      note: 'The first start downloads about 10 MB (emulator, kernel and files) and takes a few seconds to boot.',
+      keys: 'exit or Ctrl+C ends 42sh, and a fresh one starts.',
+      examples: 'Click to type:',
+      terminalLabel: '42sh terminal',
+    },
     polaroid: {
       scope: 'Here: the film grade, light leaks and frame on a single photo. The full tool also has manual cropping and rotation, batch processing with chronological renaming, resumable sessions and A4 print sheets exported as PDF.',
       note: "This is the project's own render.py, unmodified, running on Pyodide (Python compiled to WebAssembly). Your photo never leaves the browser.",

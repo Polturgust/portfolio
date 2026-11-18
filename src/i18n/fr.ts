@@ -83,6 +83,13 @@ export const fr: Copy = {
         facts: ['Pygame', 'SQLite', 'Cartes dessinées à la main'],
         alt: ['Le héros traversant une zone enneigée du jeu'],
       },
+      myshell: {
+        pitch: 'Un shell Unix, écrit de zéro en C.',
+        description:
+          "Il lit ce que vous tapez, l'analyse et l'exécute avec fork, execve, pipe et dup2 — aucun autre shell en dessous. Pipes, redirections, && et ||, parenthèses, globbing, backticks, alias, variables, historique et fichier de configuration .myshrc.",
+        facts: ['fork · execve · pipe · dup2', 'Pipes, redirections, && et ||', 'Globbing, alias, historique'],
+        alt: ['Session de terminal dans 42sh avec un pipe, une redirection, || et un glob'],
+      },
       polaroid: {
         pitch: 'Transformer un dossier de photos en Polaroids encadrés.',
         description:
@@ -92,7 +99,6 @@ export const fr: Copy = {
       },
     },
     more: {
-      shell: 'Un shell façon tcsh : pipes, redirections, globbing, alias, historique.',
       maze: 'Plus court chemin dans un labyrinthe, avec visualisation CSFML.',
       radar: 'Simulation de trafic aérien gérant un grand nombre de collisions.',
       hunter: 'Duck Hunt, recréé en C.',
@@ -104,11 +110,25 @@ export const fr: Copy = {
     close: 'Fermer',
     original: 'Démo partielle · code source original',
     port: 'Démo partielle · portage navigateur',
+    full: 'Projet complet · code source original',
+    isFull: "C'est le shell entier, non modifié.",
+    isFullLead: 'Il tourne sur un petit système Linux émulé dans votre navigateur.',
     notFull: "Ceci n'est pas le projet complet.",
     notFullLead: "C'est un moyen d'en essayer une partie dans votre navigateur.",
     fullProject: 'Voir le projet complet sur GitHub',
     source: 'Code',
     failed: "La démo n'a pas pu démarrer dans ce navigateur.",
+    myshell: {
+      scope: "Le binaire 42sh est compilé à partir des sources et du Makefile du dépôt, puis démarré dans un Linux minimal. Les commandes autres que les built-ins du shell (ls, cat, grep, sort…) viennent de BusyBox. Pas de réseau et rien n'est sauvegardé : recharger repart de zéro.",
+      booting: 'Démarrage de Linux…',
+      downloading: 'Téléchargement',
+      ready: 'Prêt — tapez une commande',
+      restart: 'Redémarrer',
+      note: "Le premier lancement télécharge environ 10 Mo (émulateur, noyau et fichiers) et met quelques secondes à démarrer.",
+      keys: 'exit ou Ctrl+C termine 42sh, et un nouveau démarre.',
+      examples: 'Cliquez pour taper :',
+      terminalLabel: 'Terminal 42sh',
+    },
     polaroid: {
       scope: "Ici : l'étalonnage film, les fuites de lumière et le cadre sur une seule photo. L'outil complet propose aussi le recadrage et la rotation à la main, le traitement par lot avec renommage chronologique, la reprise de session et des planches A4 exportées en PDF.",
       note: "C'est le render.py du projet, non modifié, exécuté par Pyodide (Python compilé en WebAssembly). Votre photo ne quitte jamais le navigateur.",

@@ -11,13 +11,6 @@ const terminal = ref<HTMLElement>()
 let io: IntersectionObserver | undefined
 let ctx: gsap.Context | undefined
 
-const session = [
-  { prompt: '$', text: './myteams_server 4242' },
-  { prompt: '$', text: './myteams_cli 127.0.0.1 4242' },
-  { prompt: '>', text: '/login "flo"' },
-  { prompt: '>', text: '/help' },
-]
-
 onMounted(() => {
   if (props.media.kind === 'video' && video.value && !reducedMotion) {
     const el = video.value
@@ -29,13 +22,14 @@ onMounted(() => {
   }
 
   if (props.media.kind === 'terminal' && terminal.value && !reducedMotion) {
+    const each = props.media.lines.length > 6 ? 0.2 : 0.45
     ctx = gsap.context(() => {
       gsap.from('.term__line', {
         autoAlpha: 0,
         x: -12,
         duration: 0.5,
         ease: 'power2.out',
-        stagger: 0.45,
+        stagger: each,
         scrollTrigger: { trigger: terminal.value, start: 'top 75%', once: true },
       })
     }, terminal.value)
@@ -78,12 +72,19 @@ onBeforeUnmount(() => {
   </video>
 
   <div v-else ref="terminal" class="term" role="img" :aria-label="alt">
-    <div class="term__bar"><span /><span /><span /><em class="mono">myteams</em></div>
+    <div class="term__bar"><span /><span /><span /><em class="mono">{{ media.title }}</em></div>
     <ol class="term__body">
-      <li v-for="line in session" :key="line.text" class="term__line">
-        <span class="term__prompt">{{ line.prompt }}</span>{{ line.text }}
+      <li
+        v-for="(line, i) in media.lines"
+        :key="i"
+        class="term__line"
+        :class="{ 'term__line--out': !line.prompt }"
+      >
+        <span v-if="line.prompt" class="term__prompt">{{ line.prompt }}</span>{{ line.text }}
       </li>
-      <li class="term__line"><span class="term__prompt">&gt;</span><span class="term__caret" /></li>
+      <li class="term__line">
+        <span class="term__prompt">{{ media.lines.find((l) => l.prompt)?.prompt }}</span><span class="term__caret" />
+      </li>
     </ol>
   </div>
 </template>
@@ -103,6 +104,7 @@ onBeforeUnmount(() => {
 .term {
   width: 100%;
   height: 100%;
+  aspect-ratio: 16 / 10;
   background: #0f1114;
   color: #e6e4de;
   display: flex;
@@ -135,7 +137,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.7em;
+  gap: 0.55em;
   padding: clamp(20px, 4vw, 56px);
   font-family: var(--font-mono);
   font-size: clamp(0.8rem, 1.45vw, 1.25rem);
@@ -144,6 +146,10 @@ onBeforeUnmount(() => {
 .term__prompt {
   color: #3aa6f2;
   margin-right: 0.9em;
+}
+
+.term__line--out {
+  opacity: 0.6;
 }
 
 .term__caret {

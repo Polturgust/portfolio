@@ -10,13 +10,21 @@ const demos: Partial<Record<ProjectId, ReturnType<typeof defineAsyncComponent>>>
   polaroid: defineAsyncComponent(() => import('../demos/polaroid/PolaroidDemo.vue')),
   raytracer: defineAsyncComponent(() => import('../demos/raytracer/RaytracerDemo.vue')),
   wolf3d: defineAsyncComponent(() => import('../demos/wolf3d/Wolf3dDemo.vue')),
+  myshell: defineAsyncComponent(() => import('../demos/myshell/MyshellDemo.vue')),
 }
 
 const project = computed(() => projects.find((p) => p.id === activeDemo.value))
 const view = computed(() => (activeDemo.value ? demos[activeDemo.value] : undefined))
 const scope = computed(() => {
   const id = activeDemo.value
-  return id === 'polaroid' || id === 'raytracer' || id === 'wolf3d' ? copy.value.demo[id].scope : ''
+  return id === 'polaroid' || id === 'raytracer' || id === 'wolf3d' || id === 'myshell'
+    ? copy.value.demo[id].scope
+    : ''
+})
+
+const badge = computed(() => {
+  const kind = project.value?.demo
+  return kind === 'full' ? copy.value.demo.full : kind === 'original' ? copy.value.demo.original : copy.value.demo.port
 })
 
 const dialog = ref<HTMLElement>()
@@ -79,7 +87,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
         <div class="demo__id">
           <h2 class="demo__title">{{ project.title }}</h2>
           <span class="demo__badge mono" :class="`demo__badge--${project.demo}`">
-            {{ project.demo === 'original' ? copy.demo.original : copy.demo.port }}
+            {{ badge }}
           </span>
         </div>
         <a class="mono link-line demo__source" :href="project.repo" target="_blank" rel="noopener">
@@ -91,7 +99,10 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
       </header>
       <div class="demo__body">
         <aside class="demo__notice" role="note">
-          <p class="demo__notice-title">
+          <p v-if="project.demo === 'full'" class="demo__notice-title">
+            <strong>{{ copy.demo.isFull }}</strong> {{ copy.demo.isFullLead }}
+          </p>
+          <p v-else class="demo__notice-title">
             <strong>{{ copy.demo.notFull }}</strong> {{ copy.demo.notFullLead }}
           </p>
           <p class="demo__notice-scope">{{ scope }}</p>

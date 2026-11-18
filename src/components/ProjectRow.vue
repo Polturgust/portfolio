@@ -10,7 +10,7 @@ const text = computed(() => copy.value.work.projects[props.project.id])
 const number = computed(() => String(props.index + 1).padStart(2, '0'))
 const ratio = (i: number) => {
   const m = props.project.media[i]
-  return m.kind === 'terminal' ? '16 / 10' : `${m.width} / ${m.height}`
+  return m.kind === 'terminal' ? 'auto' : `${m.width} / ${m.height}`
 }
 </script>
 

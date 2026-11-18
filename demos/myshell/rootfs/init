@@ -1,0 +1,33 @@
+#!/bin/busybox sh
+# First process of the demo VM: mount the basics, then keep 42sh running on the
+# serial console (the terminal on the page).
+/bin/busybox mount -t proc proc /proc
+/bin/busybox mount -t sysfs sys /sys
+/bin/busybox mount -t devtmpfs dev /dev
+/bin/busybox mount -t tmpfs tmp /tmp
+/bin/busybox chown -R 1000:1000 /home/guest /tmp
+/bin/busybox hostname 42sh
+echo 0 > /proc/sys/kernel/printk
+
+# The page passes its terminal size on the kernel command line (term_cols=, term_rows=).
+if [ -n "${term_cols:-}" ] && [ -n "${term_rows:-}" ]; then
+    stty -F /dev/ttyS0 cols "$term_cols" rows "$term_rows"
+fi
+
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin
+export HOME=/home/guest USER=guest LOGNAME=guest TERM=xterm-256color
+
+while true; do
+    clear
+    if [ "${term_cols:-80}" -lt 72 ]; then
+        cat /home/guest/.welcome-narrow
+    else
+        cat /home/guest/.welcome
+    fi
+    cd /home/guest
+    # A new session with the serial port as controlling terminal, so Ctrl+C reaches 42sh.
+    setsid -c su guest -s /bin/42sh </dev/ttyS0 >/dev/ttyS0 2>&1
+    echo
+    echo "42sh exited. Starting a new one..."
+    sleep 1
+done

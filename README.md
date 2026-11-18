@@ -27,18 +27,25 @@ Set `VITE_BASE` when the site is served from a sub-path (the Pages workflow does
 
 ## Live demos
 
-Three projects have a "Try a demo" button. Each demo runs one part of the project in the browser, not the whole thing, and says so on screen:
+Four projects have a "Try a demo" button. my-shell runs in full; the other three run one part of the project, and each demo says which on screen:
 
 | Project | What runs |
 | --- | --- |
 | polaroid-forge | The project's own `render.py`, unmodified, on Pyodide (`public/demos/polaroid/`) |
 | Raytracer | The original C++ scene reader, renderer and plugins compiled to WebAssembly (`public/demos/raytracer/`) |
+| my-shell | The whole 42sh, unmodified, on a minimal Linux booted in the browser by the v86 emulator (`public/demos/myshell/`) |
 | Wolf3D | A TypeScript port of the raycaster and map generator (`src/demos/wolf3d/`) |
 
 Rebuild the raytracer module after changing the C++ (needs Docker):
 
 ```bash
 ./demos/raytracer/build.sh
+```
+
+Rebuild the my-shell Linux guest (needs Docker):
+
+```bash
+./demos/myshell/build.sh
 ```
 
 ## Where things live
