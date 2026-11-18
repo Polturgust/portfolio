@@ -158,7 +158,7 @@ export const en = {
       canvasAlt: 'Raytraced image',
     },
     wolf3d: {
-      note: 'Every feature of the C game: the briefing, menus, settings, key remapping, saves, upgrades between rooms and the game-over screen with best score.',
+      note: 'Every gameplay feature of the C game: menus, settings, key remapping, saves, upgrades between rooms and the game-over screen with best score. The story intro is skipped so you can play right away.',
       scope: "The original is written in C with CSFML, which can't run in a browser, so the game logic was ported line by line to TypeScript. Browser differences: crouch is on C (Ctrl+W would close the tab), Escape first releases the mouse, and saves stay in this browser.",
       loading: 'Loading',
       start: 'Start the game',

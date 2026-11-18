@@ -34,7 +34,7 @@ Four projects have a "Try a demo" button. my-shell runs in full, Wolf3D is the w
 | polaroid-forge | The project's own `render.py`, unmodified, on Pyodide (`public/demos/polaroid/`) |
 | Raytracer | The original C++ scene reader, renderer and plugins compiled to WebAssembly (`public/demos/raytracer/`) |
 | my-shell | The whole 42sh, unmodified, on a minimal Linux booted in the browser by the v86 emulator (`public/demos/myshell/`) |
-| Wolf3D | The whole game — story, menus, settings, saves, upgrades — ported from the C source to TypeScript, with the original assets (`src/demos/wolf3d/`) |
+| Wolf3D | The whole game (without the story intro) — menus, settings, saves, upgrades — ported from the C source to TypeScript, with the original assets (`src/demos/wolf3d/`) |
 
 Rebuild the raytracer module after changing the C++ (needs Docker):
 

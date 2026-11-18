@@ -5,7 +5,6 @@ import { loadAssets, SOUNDS, type Assets } from './assets'
 import { Game } from './game'
 import { Input, loadLayout } from './input'
 import { renderGame } from './render'
-import { Story } from './story'
 import '../demo.css'
 
 const t = () => copy.value.demo.wolf3d
@@ -18,7 +17,6 @@ const progress = ref(0)
 let assets: Assets | undefined
 let input: Input | undefined
 let game: Game | undefined
-let story: Story | undefined
 let audio: AudioContext | undefined
 let raf = 0
 let last = 0
@@ -39,8 +37,8 @@ async function start() {
   )
   input = new Input(canvas.value, () => (game ? new Set(Object.values(game.binds)) : new Set(['Space'])))
   game = new Game(assets, input, audio, buffers, () => closeDemo())
-  story = new Story(assets, input)
-  if (import.meta.env.DEV) Object.assign(window, { __wolf: { game, story } })
+  game.playStart = performance.now() / 1000
+  if (import.meta.env.DEV) Object.assign(window, { __wolf: { game } })
   document.addEventListener('pointerlockchange', onLockChange)
   last = performance.now()
   raf = requestAnimationFrame(loop)
@@ -54,18 +52,9 @@ function loop(time: number) {
   const dt = (time - last) / 1000
   last = time
   const ctx = canvas.value?.getContext('2d')
-  if (ctx && game && story) {
-    if (!story.done) {
-      story.step()
-      story.draw(ctx)
-      if (story.done) {
-        game.playStart = performance.now() / 1000
-        input!.events.length = 0
-      }
-    } else {
-      game.step(dt)
-      renderGame(game, ctx)
-    }
+  if (ctx && game) {
+    game.step(dt)
+    renderGame(game, ctx)
   }
   raf = requestAnimationFrame(loop)
 }

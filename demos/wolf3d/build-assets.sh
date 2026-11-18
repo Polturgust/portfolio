@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Converts the Wolf3D assets (textures, sounds, font, story) for the browser demo.
+# Converts the Wolf3D assets (textures, sounds, font) for the browser demo.
+# The story intro is not part of the web demo, so its images are left out.
 #
 #   ./demos/wolf3d/build-assets.sh [path-to-Wolf3D-checkout]
 #
@@ -16,7 +17,7 @@ if [ -z "$SRC" ]; then
     [ -d "$SRC/.git" ] || git clone https://github.com/Polturgust/Wolf3D.git "$SRC"
     git -C "$SRC" checkout --quiet "$COMMIT"
 fi
-rm -rf "$OUT" && mkdir -p "$OUT/tex" "$OUT/sounds" "$OUT/story"
+rm -rf "$OUT" && mkdir -p "$OUT/tex" "$OUT/sounds"
 
 docker run --rm -u "$(id -u):$(id -g)" -e HOME=/tmp \
     -v "$(cd "$SRC" && pwd)":/src:ro -v "$HERE":/tools:ro -v "$OUT":/out \
@@ -27,7 +28,7 @@ docker run --rm -u "$(id -u):$(id -g)" -e HOME=/tmp \
             --unicodes="U+0020-007E,U+00A0-00FF,U+2190-2193,U+21A9,U+21B9" \
             --output-file=/out/arcade.ttf
     '
-cp "$SRC"/src/assets/story/*.dat "$OUT/story/"
+for f in story_back_closed story_back_open diag_box; do rm -f "$OUT/tex/$f.webp"; done
 for f in "$SRC"/src/assets/sounds/*.mp3; do
     name=$(basename "$f")
     case "$name" in

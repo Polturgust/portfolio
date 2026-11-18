@@ -160,7 +160,7 @@ export const fr: Copy = {
       canvasAlt: 'Image calculée par le raytracer',
     },
     wolf3d: {
-      note: "Toutes les fonctionnalités du jeu en C : le briefing, les menus, les réglages, les touches reconfigurables, les sauvegardes, les améliorations entre les salles et l'écran de fin avec meilleur score.",
+      note: "Tout le gameplay du jeu en C : les menus, les réglages, les touches reconfigurables, les sauvegardes, les améliorations entre les salles et l'écran de fin avec meilleur score. L'introduction scénarisée est passée pour jouer tout de suite.",
       scope: "L'original est écrit en C avec CSFML, qui ne tourne pas dans un navigateur : la logique du jeu a donc été portée ligne par ligne en TypeScript. Différences navigateur : s'accroupir se fait avec C (Ctrl+W fermerait l'onglet), Échap libère d'abord la souris, et les sauvegardes restent dans ce navigateur.",
       loading: 'Chargement',
       start: 'Lancer le jeu',
