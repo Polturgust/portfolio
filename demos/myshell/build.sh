@@ -6,7 +6,7 @@
 # Needs Docker. Output: public/demos/myshell/{bzImage,initramfs.cpio.gz}.
 set -euo pipefail
 
-COMMIT=4a2f5578b8f72c372e39e5629298cd4b82d63911
+COMMIT=c128b38
 IMAGE=i386/alpine:3.20
 
 HERE="$(cd "$(dirname "$0")" && pwd)"

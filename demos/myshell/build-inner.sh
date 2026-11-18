@@ -11,9 +11,8 @@ apk add --no-cache gcc musl-dev make linux-virt busybox-static cpio >/dev/null
 
 # --- 42sh: the project's own sources and Makefile, linked statically -------
 rm -rf /work && cp -r "$SRC" /work && cd /work
-make -s buildlib
-make -s all CFLAGS='-I./include/ -O2 -Wall -Wextra -static -L./lib -lmy -llist' \
-    2>&1 | grep -v "^make" || true
+make -s fclean >/dev/null 2>&1 || true
+make -s -j"$(nproc)" CFLAGS='-O2 -Wall -Wextra' LDFLAGS='-static'
 test -x 42sh
 strip 42sh
 
@@ -27,6 +26,7 @@ cp 42sh "$ROOT"/bin/42sh
 cp "$SRC"/.myshrc "$ROOT"/home/guest/.myshrc
 cp "$TOOLS"/rootfs/init "$ROOT"/init
 cp -r "$TOOLS"/rootfs/home/guest/. "$ROOT"/home/guest/
+chmod 755 "$ROOT"/home/guest/projects/hello.sh
 chmod 755 "$ROOT"/init
 echo "guest:x:1000:1000:guest:/home/guest:/bin/42sh" > "$ROOT"/etc/passwd
 echo "root:x:0:0:root:/root:/bin/sh" >> "$ROOT"/etc/passwd

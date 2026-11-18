@@ -25,7 +25,7 @@ while true; do
         cat /home/guest/.welcome
     fi
     cd /home/guest
-    # A new session with the serial port as controlling terminal, so Ctrl+C reaches 42sh.
+    # A new session with the serial port as controlling terminal, for job control.
     setsid -c su guest -s /bin/42sh </dev/ttyS0 >/dev/ttyS0 2>&1
     echo
     echo "42sh exited. Starting a new one..."

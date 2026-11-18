@@ -84,8 +84,8 @@ export const en = {
       myshell: {
         pitch: 'A Unix shell, written from scratch in C.',
         description:
-          'It reads what you type, parses it and runs it with fork, execve, pipe and dup2 — no other shell underneath. Pipes, redirections, && and ||, parentheses, globbing, backticks, aliases, variables, history and a .myshrc config file.',
-        facts: ['fork · execve · pipe · dup2', 'Pipes, redirections, && and ||', 'Globbing, aliases, history'],
+          'A tcsh-style shell with its own lexer, parser and executor, running programs with fork, execve, pipe and dup2 — no other shell underneath. Pipes, redirections, && and ||, sub-shells, quotes, variables, globbing, command substitution, aliases and history, with a line editor, Tab completion and job control.',
+        facts: ['Lexer → parser → executor', 'Line editor and Tab completion', 'Job control: &, Ctrl+Z, fg, bg'],
         alt: ['Terminal session in 42sh using a pipe, a redirection, || and a glob'],
       },
       polaroid: {
@@ -123,7 +123,7 @@ export const en = {
       ready: 'Ready — type a command',
       restart: 'Restart',
       note: 'The first start downloads about 10 MB (emulator, kernel and files) and takes a few seconds to boot.',
-      keys: 'exit or Ctrl+C ends 42sh, and a fresh one starts.',
+      keys: 'Tab completes · ↑↓ history · Ctrl+R search · Ctrl+Z suspends',
       examples: 'Click to type:',
       terminalLabel: '42sh terminal',
     },

@@ -86,8 +86,8 @@ export const fr: Copy = {
       myshell: {
         pitch: 'Un shell Unix, écrit de zéro en C.',
         description:
-          "Il lit ce que vous tapez, l'analyse et l'exécute avec fork, execve, pipe et dup2 — aucun autre shell en dessous. Pipes, redirections, && et ||, parenthèses, globbing, backticks, alias, variables, historique et fichier de configuration .myshrc.",
-        facts: ['fork · execve · pipe · dup2', 'Pipes, redirections, && et ||', 'Globbing, alias, historique'],
+          "Un shell façon tcsh avec son propre lexer, parser et exécuteur, qui lance les programmes avec fork, execve, pipe et dup2 — aucun autre shell en dessous. Pipes, redirections, && et ||, sous-shells, guillemets, variables, globbing, substitution de commandes, alias et historique, avec un éditeur de ligne, la complétion Tab et le contrôle des jobs.",
+        facts: ['Lexer → parser → exécuteur', 'Éditeur de ligne et complétion Tab', 'Contrôle des jobs : &, Ctrl+Z, fg, bg'],
         alt: ['Session de terminal dans 42sh avec un pipe, une redirection, || et un glob'],
       },
       polaroid: {
@@ -125,7 +125,7 @@ export const fr: Copy = {
       ready: 'Prêt — tapez une commande',
       restart: 'Redémarrer',
       note: "Le premier lancement télécharge environ 10 Mo (émulateur, noyau et fichiers) et met quelques secondes à démarrer.",
-      keys: 'exit ou Ctrl+C termine 42sh, et un nouveau démarre.',
+      keys: 'Tab complète · ↑↓ historique · Ctrl+R recherche · Ctrl+Z suspend',
       examples: 'Cliquez pour taper :',
       terminalLabel: 'Terminal 42sh',
     },

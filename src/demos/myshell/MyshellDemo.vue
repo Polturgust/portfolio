@@ -13,12 +13,12 @@ const t = () => copy.value.demo.myshell
 // Commands checked against the real 42sh in this VM.
 const examples = [
   'ls -la | grep txt',
-  'cat fruits.txt | grep b | wc -l',
-  'echo hello > note.txt ; cat < note.txt',
+  'cat fruits.txt | sort -r > s.txt ; cat s.txt',
+  'set name = you ; echo "hello $name"',
+  'cd pro',
   'false || echo fallback',
-  'ls *.t?t',
-  'echo `pwd`',
-  'alias ll ls -l',
+  'sleep 20 &',
+  'jobs',
   'history',
 ]
 
@@ -52,8 +52,8 @@ function onByte(byte: number) {
       welcomed = true
       seen = ''
     }
-    // the shell's prompt shows the current directory once the welcome text is out
-    if (welcomed && seen.includes('/home/guest')) status.value = 'ready'
+    // the prompt's "➜" (UTF-8 e2 9e 9c) appears once the welcome text is out
+    if (welcomed && seen.includes('\u00e2\u009e\u009c')) status.value = 'ready'
   }
   if (!flushQueued) {
     flushQueued = true
